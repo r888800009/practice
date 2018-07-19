@@ -9,23 +9,23 @@ void swap(int *a, int *b)
 
 void quicksort(int *list, int size) 
 {
-    int endIndex  = size - 1;
-    int headIndex = 0;
+    int *endPtr  = list + size - 1;
+    int *headPtr = list;
     
-    while (headIndex < endIndex)
+    while (headPtr < endPtr)
     {   
-        if (list[headIndex] > list[endIndex]) {
-            swap(list + endIndex, list + endIndex - 1);
-            if (endIndex - headIndex > 1)
-                swap(list + endIndex, list + headIndex);
-            endIndex--;
+        if (*headPtr > *endPtr) {
+            swap(endPtr, endPtr - 1);
+            if (endPtr - headPtr > 1)
+                swap(endPtr, headPtr);
+            endPtr--;
         } else {
-            headIndex++;
+            headPtr++;
         }
     }
     if (size > 2) {
-        quicksort(list, endIndex);
-        quicksort(list + endIndex + 1, size - (endIndex + 1));
+        quicksort(list, endPtr - list);
+        quicksort(endPtr + 1, size - (endPtr - list + 1));
     }
 }
 
