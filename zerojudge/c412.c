@@ -1,21 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-long long int combin(int a, int b) 
-{
-    if (a - b < 0)
-        return 0;
-
-    long long int result = 1;
-    for (int i = a; i > a - b; i--)
-        result *= i;  
-
-    for (int i = b; i > b; i--)
-        result /= i;
-
-    return result;
-}
-
 int main(int argc, char *argv[])
 {
     int n;
@@ -23,18 +8,28 @@ int main(int argc, char *argv[])
     getchar();
 
     for (int i = 0; i < n; i++) {
-        int o = 0;
-        int w = 0, wtmp = 0;
+        unsigned long long int o = 0;
+        unsigned long long int w = 0, addW = 0;
+        unsigned long long int a = 0, prevA = 0;
+        unsigned long long int prevAdd = 0;
         char c;
         while ((c = getchar()) != '\n') {
             if (c == 'O') {
+                unsigned long long int new_1 = addW * o;
+                unsigned long long int addNew  = prevAdd + new_1;
+
+                a += addNew;
+
                 o++;
-                w += wtmp;
-                wtmp = 0;
+                w += addW;
+                addW  = 0;
+
+                prevA   = a; 
+                prevAdd = addNew;
             } else if(c == 'w' && o > 0)
-                wtmp++;
+                addW++;
         }
-        printf("%d\n", (o - 1) >=1 ? ((o - 1) * w) % 1000000007 : 0);
+        printf("%llu\n", a % 1000000007);
 
     }
 
