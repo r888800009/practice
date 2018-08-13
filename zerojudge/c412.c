@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
 
     int j = 1; 
     for (int k = 0; k < n; k++) {
-        unsigned long long int o = 0;
-        unsigned long long int addW = 0;
-        unsigned long long int a = 0;
-        unsigned long long int addNew = 0;
+        int o = 0;
+        int addW = 0;
+        int a = 0;
+        int addNew = 0;
 
         char c;
         while (i > 0 && (c = buffer[j++]) != '\n') {
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
                 j = 0;
             }
         }
-        printf("%llu\n", a);
+        printf("%d\n", a);
     }
 
     return 0;
