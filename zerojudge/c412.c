@@ -1,20 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define buffer_size 1024
 #define magic 1000000007 
 int main(int argc, char *argv[])
 {
-    int n;
-    scanf("%d", &n); 
     char buffer[buffer_size];
     int i = 1;
-    i = fread(buffer, 1, buffer_size, stdin);
+    i = read(STDIN_FILENO, buffer, buffer_size);
     
     if (i <= 0)
         return 0;
 
-    int j = 1; 
+    int j = 0; 
+    int n;
+    sscanf(buffer, "%d", &n);
+    while (buffer[j++] != '\n');
+
     for (int k = 0; k < n; k++) {
         int o = 0;
         int addW = 0;
@@ -40,8 +43,8 @@ int main(int argc, char *argv[])
             } else if(c == 'w' && o > 0)
                 addW++;
 
-            if (j > buffer_size) {
-                i = fread(buffer, 1, buffer_size, stdin);
+            if (j > i) {
+                i = read(STDIN_FILENO, buffer, buffer_size);
                 j = 0;
             }
         }
