@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         int addNew = 0;
 
         char c;
-        while (i > 0 && (c = buffer[j++]) != '\n') {
+        while ((c = buffer[j++]) != '\n') {
             if (c == 'O') {
                 if (addW) {
                     addNew += addW * o;
@@ -40,15 +40,25 @@ int main(int argc, char *argv[])
                 if (a > magic)
                     a -= magic;
                 o++;
-            } else if(c == 'w' && o > 0)
+            } else if(o > 0 && c == 'w')
                 addW++;
 
             if (j > i) {
                 i = read(STDIN_FILENO, buffer, buffer_size);
+                if (i <= 0) 
+                    break;
                 j = 0;
             }
         }
-        printf("%d\n", a);
+
+        //printf %d
+        char intBuffer[10];
+        int index = 0;
+        intBuffer[9 - (index++)] = '\n';
+        do {
+            intBuffer[9 - (index++)] = '0' + a % 10;
+        } while ((a /= 10 ) > 0);
+        write(STDOUT_FILENO, intBuffer + 10 - index, index);
     }
 
     return 0;
