@@ -1,12 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define buffer_size 1024
 #define magic 1000000007 
+#define print_size 10
+char buffer[buffer_size];
+char writeBuffer[buffer_size];
+int  writeIndex = 0;
+
+void print()
+{
+
+    write(STDOUT_FILENO, writeBuffer, writeIndex);
+    writeIndex = 0;
+}
+
+void addToBuffer(int a) 
+{
+    if (writeIndex + print_size > buffer_size)
+        print();
+
+    char intBuffer[print_size];
+    int index = 0;
+    intBuffer[print_size - 1 - (index++)] = '\n';
+    do {
+        intBuffer[print_size - 1 - (index++)] = '0' + a % 10;
+    } while ((a /= 10 ) > 0);
+    memmove(writeBuffer + writeIndex, intBuffer + print_size - index, index);
+    writeIndex += index;
+}
+
 int main(int argc, char *argv[])
 {
-    char buffer[buffer_size];
     int i = 1;
     i = read(STDIN_FILENO, buffer, buffer_size);
     
@@ -50,16 +77,9 @@ int main(int argc, char *argv[])
                 j = 0;
             }
         }
-
-        //printf %d
-        char intBuffer[10];
-        int index = 0;
-        intBuffer[9 - (index++)] = '\n';
-        do {
-            intBuffer[9 - (index++)] = '0' + a % 10;
-        } while ((a /= 10 ) > 0);
-        write(STDOUT_FILENO, intBuffer + 10 - index, index);
+        addToBuffer(a);
     }
+    print();
 
     return 0;
 }
