@@ -21,24 +21,18 @@ int hash(char *str)
     return result;
 }
 
-int hasFirst(table *table1, char *name,char testAC) 
+void check(table *table1, char *name,char testAC) 
 {
     int index = hash(name); 
      
     for (int i = 0; i < (int) strlen(name); i++) {
         if(table1[index].str[i] != name[i]) {
-            index++;
-            index %= hashsize;
+            index = (index + 1) % hashsize;
             if (table1[index].str[0] != '\0')
                 i = 0;
             else {
                 memcpy(table1[index].str, name, strlen(name));
-                if (testAC == 'A') { 
-                    killAC++;
-                    table1[index].firstAC = 1;
-                    table1[index].isAC = 1;
-                }
-                return 1;
+                break;
             }
         }
     }
@@ -47,20 +41,15 @@ int hasFirst(table *table1, char *name,char testAC)
         killAC++;
         table1[index].isAC = 1;
         table1[index].firstAC = 1;
-    } else if (testAC == 'A' && table1[index].isAC) { 
-        if (!table1[index].firstAC) {
+    } else if (testAC == 'A' && table1[index].isAC && !table1[index].firstAC) { 
             killAC++;
             nonKillAC--;
             table1[index].firstAC = 1;
-        }        
-    } else if (table1[index].isAC) {
-        if (table1[index].firstAC) {
+    } else if (testAC != 'A' && table1[index].isAC && table1[index].firstAC) {
             killAC--;
             nonKillAC++;
             table1[index].firstAC = 0;
-        } 
     }
-    return 0;     
 }
 
 int main(int argc, char *argv[])
@@ -73,7 +62,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < n; i++) {
         scanf("%s", name);
         scanf("%s", buffer);
-        hasFirst(table1, name, buffer[0]); 
+        check(table1, name, buffer[0]); 
     }
     printf("%d%%\n", (killAC * 100) / (nonKillAC + killAC));
     return 0;
