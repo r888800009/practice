@@ -4,7 +4,6 @@
 
 uint64_t look(uint32_t *buffer,int direction, uint32_t *last, uint32_t high) {
     uint64_t result = 0, lastMin = 0;
-    int sameHigh = 0;
     if (buffer == last)
         return 0;
     
@@ -13,10 +12,7 @@ uint64_t look(uint32_t *buffer,int direction, uint32_t *last, uint32_t high) {
         if (*buffer > high)
             return ++result;
 
-        if (*buffer == high)
-            sameHigh = 1, result++;
-
-        if (!sameHigh && *buffer >= lastMin)
+        if (*buffer >= lastMin)
             result++, lastMin = *buffer;
 
         buffer += direction;  
@@ -36,7 +32,7 @@ int main(int argc, char *argv[])
 
     for (int i = 0; i < n; i++) {
         //select to end 
-        result += look(high + i, 1,high + n - 1, high[i]);    
+        result += look(high + i, 1, high + n - 1, high[i]);    
         //select to first
         result += look(high + i, -1, high, high[i]);    
     }
