@@ -14,20 +14,6 @@ void display()
    cursor = 0;
 }
 
-void putInBuffer(int num)
-{
-    if (cursor + 4 >= buffer_size)
-        display();
-
-    if (num >= 10) {
-        buffer_out[++cursor] = '0' + num / 10;
-        buffer_out[++cursor] = '0' + num % 10;
-    } else 
-        buffer_out[++cursor] = '0' + num;
-
-    buffer_out[++cursor] = '\n';
-}
-
 int main(int argc, char *argv[])
 {
     int i, j = 0;
@@ -35,8 +21,19 @@ int main(int argc, char *argv[])
     cursor = 0; 
     int m = 0;
     while (i > 0) {
-        if (buffer_in[j] == '\n')
-            putInBuffer(m), m = 0;
+        if (buffer_in[j] == '\n') {
+            if (cursor + 4 >= buffer_size)
+                    display();
+
+                if (m >= 10) {
+                    buffer_out[++cursor] = '0' + m / 10;
+                    buffer_out[++cursor] = '0' + m % 10;
+                } else 
+                    buffer_out[++cursor] = '0' + m;
+
+                buffer_out[++cursor] = '\n';
+            m = 0;
+        }
         else if (isdigit(buffer_in[j])) {
             m = 10 * m + buffer_in[j] - '0';
             while (m >= 91) 
