@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <unistd.h>
-#include <stdint.h>
+#include <cstdint>
 #include <ctype.h>
 
 #define buffer_size 2048
