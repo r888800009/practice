@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdint.h>
 
 #define buffer_size 1024
 #define magic 1000000007 
@@ -12,24 +13,8 @@ int  writeIndex = 0;
 
 void print()
 {
-
     write(STDOUT_FILENO, writeBuffer, writeIndex);
     writeIndex = 0;
-}
-
-void addToBuffer(int a) 
-{
-    if (writeIndex + print_size > buffer_size)
-        print();
-
-    char intBuffer[print_size];
-    int index = 0;
-    intBuffer[print_size - 1 - (index++)] = '\n';
-    do {
-        intBuffer[print_size - 1 - (index++)] = '0' + a % 10;
-    } while ((a /= 10 ) > 0);
-    memmove(writeBuffer + writeIndex, intBuffer + print_size - index, index);
-    writeIndex += index;
 }
 
 int main(int argc, char *argv[])
@@ -48,7 +33,7 @@ int main(int argc, char *argv[])
     for (int k = 0; k < n; k++) {
         int o = 0;
         int addW = 0;
-        int a = 0;
+        uint64_t a = 0;
         int addNew = 0;
 
         char c;
@@ -64,8 +49,8 @@ int main(int argc, char *argv[])
                 }
 
                 a += addNew;
-                if (a > magic)
-                    a -= magic;
+                if (a > 1000000000000000000) //log_10 2^64
+                    a %= magic;
                 o++;
             } else if(o > 0 && c == 'w')
                 addW++;
@@ -77,7 +62,20 @@ int main(int argc, char *argv[])
                 j = 0;
             }
         }
-        addToBuffer(a);
+
+        a %= magic;
+        //add to buffer
+        if (writeIndex + print_size > buffer_size)
+            print();
+
+        char intBuffer[print_size];
+        int index = 0;
+        intBuffer[print_size - 1 - (index++)] = '\n';
+        do {
+            intBuffer[print_size - 1 - (index++)] = '0' + a % 10;
+        } while ((a /= 10 ) > 0);
+        memmove(writeBuffer + writeIndex, intBuffer + print_size - index, index);
+        writeIndex += index;
     }
     print();
 
