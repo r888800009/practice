@@ -1,12 +1,12 @@
 # Practice
 
 ## Recursive
-- [Hanoi](hanoi.py)
-- [QuickSort](quicksort.c)
+  - [Hanoi](hanoi.py)
+  - [QuickSort](quicksort.c)
 
 ## Tree
-- [Rotate](rotateTree.c)
+  - [Rotate](rotateTree.c)
 
 ## Online Judge
-- [ZeroJudge](https://zerojudge.tw/)
-- [LeetCode](https://leetcode.com/)
+  - [ZeroJudge](https://zerojudge.tw/)
+  - [LeetCode](https://leetcode.com/)
