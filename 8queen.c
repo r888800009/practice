@@ -5,9 +5,7 @@
 #define NUM_OF_QUEEN 8
 #define SIZE 8
 
-typedef struct Pos {
-    int x, y;
-} Pos;
+typedef int Pos;
 
 void swap(Pos *a, Pos *b)
 {
@@ -18,17 +16,10 @@ void swap(Pos *a, Pos *b)
 
 void display(Pos queens[NUM_OF_QUEEN], int size)
 {
-    // sory by y dec
-    for (int sortedPos; sortedPos < size; sortedPos++) {
-        for (int curPos = size - 1; curPos > 0; curPos--)
-            if (queens[curPos - 1].y > queens[curPos].y)
-                swap(&queens[curPos - 1], &queens[curPos]);
-    }
-
     // print
     for (int y = 0; y < size; y++) {
         for (int x = 0; x < size; x++) {
-            if (queens[y].x == x)
+            if (queens[y] == x)
                 printf("Q");
             else
                 printf("_");
@@ -40,15 +31,15 @@ void display(Pos queens[NUM_OF_QUEEN], int size)
 
 bool canPut(Pos queens[NUM_OF_QUEEN], Pos newQueen, int numOfOnBoard)
 {
-    for (int i = 0; i < numOfOnBoard; i++) {
-        Pos relative = {newQueen.x - queens[i].x, newQueen.y - queens[i].y};
+    for (int y = 0; y < numOfOnBoard; y++) {
+        Pos relative = newQueen - queens[y];
 
         // vertical line or horizontal line or some pos
-        if (relative.x == 0 || relative.y == 0)
+        if (relative == 0 || numOfOnBoard - y == 0)
             return false;
 
         // forward slash or back slash
-        if (abs(relative.x) == abs(relative.y))
+        if (abs(relative) == abs(numOfOnBoard - y))
             return false;
     }
 
@@ -65,9 +56,8 @@ bool backtracking(Pos *queens, int num_of_queens, int board_size, int numOfOnBoa
     } else {
         // chose one column
         for (int x = 0; x < board_size; x++) {
-            Pos newQueen = {x, numOfOnBoard};
-            if (canPut(queens, newQueen, numOfOnBoard)) {
-                queens[numOfOnBoard] = newQueen;
+            if (canPut(queens, x, numOfOnBoard)) {
+                queens[numOfOnBoard] = x;
 
                 // next row
                 if (backtracking(queens, num_of_queens, board_size, numOfOnBoard + 1))
