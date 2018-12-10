@@ -7,13 +7,6 @@
 
 typedef int Pos;
 
-void swap(Pos *a, Pos *b)
-{
-    Pos tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
-
 void display(Pos queens[NUM_OF_QUEEN], int size)
 {
     // print
