@@ -20,6 +20,7 @@ int isPassable(char status) {
 
 int moveCounter(char cur, char next) {
     int result = 0;
+
     // get diff
     cur ^= next;
 
@@ -36,6 +37,8 @@ int moveCounter(char cur, char next) {
 void river(char status) {
     stack[top] = status;
     top++;
+
+    // basecase is status to 0b0000
     if (status == 0b0000) {
         // print stack
         for (int i = 0; i < top - 1; i++) printf("%d => ", stack[i]);
