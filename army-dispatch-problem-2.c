@@ -12,7 +12,7 @@ int main() {
   scanf("%d %d %d %d", &n, &x, &y, &z);
 
   // load line 2
-  int A[n], tmp, max_people = INT_MIN;
+  long long A[n], tmp, max_people = INT_MIN;
   for (int i = 0; i < n; i++) {
     scanf("%d", &tmp);
     A[i] = tmp;
@@ -20,7 +20,7 @@ int main() {
   }
 
   // dp solve
-  int pre, pre_people = A[0], cur_people;
+  long long pre, pre_people = A[0], cur_people;
   pre = pre_people * (x + y);
   for (int i = 1; i < n; i++) {
     if (y - z > 0)
@@ -32,7 +32,7 @@ int main() {
         cur_people = pre_people;
     }
 
-    int diff = cur_people - pre_people;
+    long long diff = cur_people - pre_people;
     if (diff > 0)
       pre += diff * x;
     else
@@ -42,7 +42,7 @@ int main() {
     pre_people = cur_people;
   }
 
-  printf("%d\n", pre);
+  printf("%lld\n", pre);
 
   return 0;
 }
