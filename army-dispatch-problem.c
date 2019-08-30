@@ -26,11 +26,11 @@ int main() {
       int diff = j - pre_people;
 
       // supply
-      dp[i][j] = y * j;
+      dp[i][j] = dp[i - 1][pre_people] + y * j;
       if (diff < 0)  // back
-        dp[i][j] += dp[i - 1][pre_people] + z * -diff;
+        dp[i][j] += z * -diff;
       if (diff > 0)  // send
-        dp[i][j] += dp[i - 1][pre_people] + x * diff;
+        dp[i][j] += x * diff;
 
       if (dp[i][cur_people] > dp[i][j]) cur_people = j;
     }
