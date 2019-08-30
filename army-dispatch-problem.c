@@ -25,12 +25,12 @@ int main() {
     for (int j = cur_people = A[i]; j <= max_people; j++) {
       int diff = j - pre_people;
 
-      if (diff < 0)  // back
-        dp[i][j] = dp[i - 1][pre_people] + z * -diff;
-      if (diff > 0)  // send
-        dp[i][j] = dp[i - 1][pre_people] + x * diff;
       // supply
-      dp[i][j] += y * j;
+      dp[i][j] = y * j;
+      if (diff < 0)  // back
+        dp[i][j] += dp[i - 1][pre_people] + z * -diff;
+      if (diff > 0)  // send
+        dp[i][j] += dp[i - 1][pre_people] + x * diff;
 
       if (dp[i][cur_people] > dp[i][j]) cur_people = j;
     }
