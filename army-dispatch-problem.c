@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 int max(int a, int b) { return a > b ? a : b; }
-int min(int a, int b) { return a < b ? a : b; }
 
 int main() {
   int n;
@@ -20,10 +19,9 @@ int main() {
   }
 
   // dp solve
-  int dp[n][max_people + 1], pre_people = A[0], cur_people, min_money;
+  int dp[n][max_people + 1], pre_people = A[0], cur_people;
   dp[0][pre_people] = pre_people * (x + y);
   for (int i = 1; i < n; i++) {
-    min_money = INT_MAX;
     for (int j = cur_people = A[i]; j <= max_people; j++) {
       int diff = j - pre_people;
 
@@ -34,16 +32,13 @@ int main() {
       // supply
       dp[i][j] += y * j;
 
-      if (min_money > dp[i][j]) {
-        min_money = dp[i][j];
-        cur_people = j;
-      }
+      if (dp[i][cur_people] > dp[i][j]) cur_people = j;
     }
 
     pre_people = cur_people;
   }
 
-  printf("%d\n", min_money);
+  printf("%d\n", dp[n - 1][pre_people]);
 
   return 0;
 }
