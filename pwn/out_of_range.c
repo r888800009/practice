@@ -6,7 +6,7 @@ void shellcode_win() { system("cmd"); }
 void shellcode_unix() { system("/bin/sh"); }
 
 void index_out() {
-  int array[1];
+  size_t array[1];
   int index;
 
   printf("Give me index\n");
@@ -15,10 +15,15 @@ void index_out() {
 
   printf("Give me return address\n");
   fflush(stdout);
-  scanf("%u", &array[index]);
+  scanf("%p", &array[index]);
 }
 
+void win10_hint() { shellcode_win(); }
+
 int main() {
+  printf("hint1: %p\n", shellcode_win);
+  printf("hint2: %p\n", shellcode_unix);
+  printf("hint3: %p\n", win10_hint);
   index_out();
   return 0;
 }
