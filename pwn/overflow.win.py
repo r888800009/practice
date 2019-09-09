@@ -2,7 +2,7 @@
 from pwn import *
 import pwnlib.shellcraft
 
-# nc -l -p 10010 -e ./overflow.exe
+# nc -l -p 10010 -e ./overflow.win.exe
 c = remote("localhost", 10010)
 
 context.os='windows'
