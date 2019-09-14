@@ -3,6 +3,7 @@
 
 // x86
 // disable SafeSEH
+// setenv /x86
 // cl seh.c /DYNAMICBASE:NO /link /FIXED /SAFESEH:NO
 
 void shellcode() { system("cmd"); }
