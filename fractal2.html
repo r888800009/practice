@@ -1,0 +1,82 @@
+
+
+<canvas id="screen" width="400" height="400" style="background-color:#fff">
+
+<script>
+var start = false;
+var start_xy = []
+function paint(x, y, w, deep, type) {
+
+  if (deep <= 0) {
+      ctx.lineTo(x,y);
+
+    return 0; 
+  }
+
+  var helf = w / 2;
+  //ctx.fillRect(x - helf, y - helf, w, w);
+
+  deep -= 1;
+  var xy = [
+      [x - helf, y - helf],
+      [x, y - helf],
+      [x + helf, y - helf],
+      [x + helf, y],
+      [x + helf, y + helf],
+      [x, y + helf],
+      [x - helf, y + helf],
+      [x - helf, y],
+  ];
+
+  if (type == -1) {
+    paint(x - helf, y + helf, helf, deep, 0);
+    paint(x - helf, y - helf, helf, deep, 2);
+    paint(x + helf, y - helf, helf, deep, 4);
+    paint(x + helf, y + helf, helf, deep, 6);
+  } else {
+    if (deep == 0) {
+
+        for (var i = 0; i < 7; i++)  {
+          var j = (type + i +3) % 8;
+          paint(xy[j][0], xy[j][1], helf, deep, j);
+        }
+        return;
+    } else {
+        var j = (type + 3 * 2 + 4) % 8;
+        var i = (type + 0 * 2 + 4) % 8;
+        var x = (xy[i][0] + xy[j][0]) / 2
+        var y = (xy[i][1] + xy[j][1]) / 2
+
+        if (start == false) {
+          start = true;
+          start_xy = [x, y];
+          ctx.moveTo(x,y);
+        } else { 
+          ctx.lineTo(x,y);
+        }
+
+        for (var i = 0; i < 3; i++)  {
+          var j = (type + i * 2 + 4) % 8;
+          paint(xy[j][0], xy[j][1], helf, deep, j +2);
+        }
+
+        var j = (type + 3 * 2 + 4) % 8;
+        var i = (type + 2 * 2 + 4) % 8;
+        var x = (xy[i][0] + xy[j][0]) / 2
+        var y = (xy[i][1] + xy[j][1]) / 2
+        ctx.lineTo(x,y);
+    }
+  }
+}
+ 
+var c = document.getElementById("screen");
+var ctx = c.getContext("2d");
+
+var helf = 400 / 2
+
+ctx.beginPath();
+paint(helf, helf, helf, 6, -1);
+ctx.lineTo(start_xy[0], start_xy[1]);
+ctx.stroke();
+</script>
+<!-- <meta http-equiv="refresh" content="0.5"> -->
