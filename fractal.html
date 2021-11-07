@@ -1,0 +1,29 @@
+
+
+<canvas id="screen" width="400" height="400" style="background-color:#fff">
+
+<script>
+function paint(x, y, w, deep) {
+  if (deep <= 0) {
+    return 0; 
+  }
+
+  ctx.fillStyle = "#000";
+  var helf = w / 2;
+  ctx.fillRect(x - helf, y - helf, w, w);
+
+  deep -= 1;
+
+  paint(x - helf, y + helf, helf, deep);
+  paint(x - helf, y - helf, helf, deep);
+  paint(x + helf, y - helf, helf, deep);
+  paint(x + helf, y + helf, helf, deep);
+}
+ 
+var c = document.getElementById("screen");
+var ctx = c.getContext("2d");
+
+var helf = 400 / 2
+paint(helf, helf, helf, 8);
+
+</script>
