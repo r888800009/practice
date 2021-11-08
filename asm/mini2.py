@@ -93,6 +93,17 @@ with open("./mini", "rb") as rf:
         wf.seek(code3_off)
         wf.write(asm(code3) + b'\xeb\x30') # hex(0x70-0x50-14)
 
+
+        # we write to LMA most equal VMA
+        """
+        data = asm('nop;nop;nop;nop;nop;')
+        data = b'AAAAA'
+        wf.seek(0x60)
+        wf.write(bytes(data))
+        wf.seek(0x68)
+        wf.write(bytes(data))
+        """
+
         # write exit()
         wf.seek(exit_off)
         wf.write(asm(shellcraft.exit(0)))
