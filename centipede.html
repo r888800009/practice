@@ -1,0 +1,89 @@
+
+
+<canvas id="screen" width="800" height="800" style="background-color:#fff">
+
+<script>
+function body(x, y, w, deep) {
+  if (deep <= 0) {
+    return 0; 
+  }
+
+  ctx.fillStyle = "#000";
+  var helf = w / 2;
+  ctx.fillRect(x - helf, y - helf, w, w);
+
+  deep -= 1;
+
+  paint(x - helf, y + helf, helf, deep);
+  paint(x - helf, y - helf, helf, deep);
+  paint(x + helf, y - helf, helf, deep);
+  paint(x + helf, y + helf, helf, deep);
+}
+ 
+var canvas = document.getElementById("screen");
+var context = canvas.getContext("2d");
+
+var helf = 400 / 2
+//paint(helf, helf, helf, 8);
+
+
+function foot_r(w, l, angle, time) {
+  context.save();
+  context.translate(w,  l/2);
+  context.rotate(angle * Math.PI / 180);
+  context.beginPath();            
+      context.fillStyle = "rgb(0, 0, 0)";
+      context.rect(0,0,w,l/10);
+      context.fill();
+  context.stroke();
+  context.restore();
+}
+
+function foot_l(w, l, angle, time) {
+  context.save();
+  context.translate(0 ,  l/2);
+  context.rotate(-angle * Math.PI / 180);
+  context.beginPath();            
+      context.fillStyle = "rgb(0, 0, 0)";
+      context.rect(0,0,-w,-l/10);
+      context.fill();
+  context.stroke();
+  context.restore();
+}
+
+function body(w, l, deep, body_angle, time) {
+  if (deep <= 0) {
+    return 0; 
+  }
+
+  context.translate(0, l + 2);
+  context.rotate(Math.cos(15 * deep * Math.PI / 180 + time * 5 * Math.PI / 180) * Math.PI / 180);
+  context.beginPath();            
+      context.fillStyle = "rgb(56, 41, 0)";
+      context.rect(0,0,w,l);
+      context.fill();
+  context.stroke();
+  context.save();
+  context.restore();
+
+  foot_r(w, l, 30 * Math.cos(deep + time/10));
+  foot_l(w, l, 30 * Math.cos(deep+ 10 + time/10));
+
+
+  deep -= 1;
+
+  body(w, l, deep, body_angle, time)
+}
+
+var timer = 0;
+setInterval(function(){
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.save();
+    context.translate(0, -100 * timer /60);
+    context.translate(200, 800);
+    body(15, 10, 20, 0, timer);
+    context.restore();
+    timer += 1;
+  }, 1000/60);
+</script>
