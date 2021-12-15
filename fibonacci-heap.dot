@@ -1,0 +1,170 @@
+digraph G {
+    graph[rankdir=TB, nodesep=2, overlap=false]
+    node[shape=rect, fontname="consolas"]
+  
+
+  
+	subgraph rank1 {
+        rank="same";
+        
+        root[label="min value"];
+        
+
+	} 
+	subgraph rank2 {
+	    edge[minlen=3]
+        rank="same";
+        n1[style="plaintext", margin=0, pad=100, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+        
+
+        
+        n2[style="plaintext", margin=0, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+
+
+        n3[style="plaintext", margin=0, pad=10, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+
+        
+    	n1:r -> n2:p;
+    	n1:l:sw -> n3:r:se;
+ 
+    	
+    	n2:r -> n3:p; 
+    	n2:l -> n1:p; 
+    	
+    	n3:r:s -> n1:l:s;
+    	n3:l -> n2:p;
+
+	} 
+	
+		subgraph rank3 {
+    
+        rank="same";
+        n4[style="plaintext", margin=0, pad=100, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+        
+
+        
+        n5[style="plaintext", margin=0, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+
+
+
+
+        
+    	n4:r -> n5:p;
+    	n4:l:s -> n5:r:s;
+ 
+    
+    	n5:r:s -> n4:l:s;
+    	n5:l -> n4:p;
+	} 
+	
+	subgraph rank4 {
+        n6[style="plaintext", margin=0, pad=10, label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="">
+        <TR>
+            <TD COLSPAN="3" PORT="p">parrent</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="k">key</TD>
+            <TD COLSPAN="1"  PORT="d">degree</TD>
+            <TD COLSPAN="1"  PORT="k">mark</TD>
+        </TR>
+        <TR>
+            <TD COLSPAN="1"  PORT="l">left</TD>
+            <TD COLSPAN="1"  PORT="c">child</TD>
+            <TD COLSPAN="1"  PORT="r">right</TD>
+        </TR>
+        </TABLE>
+        >];
+        
+    	n6:l:s -> n6:r:s;
+    	n6:r:s -> n6:l:s;
+	}
+
+    n1:c -> n4:p[minlen=10];
+    n4:c -> n6:p[minlen=5];
+    
+    root-> n1:p;
+
+}
+
+
