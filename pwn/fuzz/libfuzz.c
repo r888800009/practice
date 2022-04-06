@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+clang++ -g -fsanitize=fuzzer,address libfuzz.c -o libfuzz
+*/
+
 void foo(const uint8_t *Data, size_t Size) {
   if (Data[0] == 'a') {
     // trigger a crash
