@@ -48,3 +48,17 @@ for j in range(100000):
 end = time.time()
 print("functools_cache: ", end - start)
 
+print('Avoid system cache affecting the results, so test again')
+start = time.time()
+for j in range(100000):
+    for i in range(1000):
+        dict_cache(i)
+end = time.time()
+print("dict_cache: ", end - start)
+
+start = time.time()
+for j in range(100000):
+    for i in range(1000):
+        functools_cache(i)
+end = time.time()
+print("functools_cache: ", end - start)
