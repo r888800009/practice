@@ -30,3 +30,5 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+// gcc ./fast-bin.c -o ./fast-bin -g

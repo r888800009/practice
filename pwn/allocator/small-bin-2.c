@@ -27,3 +27,5 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+// gcc -o small-bin-2 small-bin-2.c -no-pie -g
